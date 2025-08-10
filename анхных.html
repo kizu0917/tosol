@@ -1,0 +1,1357 @@
+<!DOCTYPE html>
+<html lang="mn">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Дохионы Хэл - Өдөр тутмын хэрэглээ</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Main Styles */
+    :root {
+      --green: #58a700;
+      --light-green: #8fe022;
+      --dark-green: #3e7800;
+      --white: #ffffff;
+      --black: #1d1d1d;
+      --gray: #f0f0f0;
+      --dark-gray: #767676;
+      --red: #ff4b4b;
+      --yellow: #ffd900;
+      --orange: #ff9600;
+      --blue: #4b9bff;
+      --purple: #b84bff;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: var(--gray);
+      color: var(--black);
+      line-height: 1.6;
+    }
+
+    /* Header */
+    .header {
+      background-color: var(--white);
+      height: 70px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 30px;
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-icon {
+      font-size: 2rem;
+      color: var(--green);
+    }
+
+    .logo-text {
+      display: inline-block;
+      /* Энэ мөрийг нэмсэн */
+      font-weight: bold;
+      font-size: 1.8rem;
+      background: linear-gradient(to right, var(--green), var(--light-green));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Navigation */
+    .nav-items {
+      display: flex;
+      gap: 25px;
+    }
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      color: var(--dark-gray);
+      transition: all 0.3s;
+    }
+
+    .nav-item:hover {
+      color: var(--green);
+      transform: translateY(-2px);
+    }
+
+    .nav-item i {
+      font-size: 1.4rem;
+    }
+
+    .nav-item.active {
+      color: var(--green);
+      transform: translateY(-2px);
+    }
+
+    .nav-item-text {
+      font-size: 0.8rem;
+      margin-top: 3px;
+      font-weight: 500;
+    }
+
+    /* Main Content */
+    .main {
+      margin-top: 90px;
+      padding: 25px;
+      min-height: calc(100vh - 150px);
+    }
+
+    /* Category Header */
+    .category-header {
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      border-radius: 20px;
+      padding: 30px;
+      margin-bottom: 30px;
+      color: white;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(75, 155, 255, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .category-header h1 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    .category-header p {
+      font-size: 1.1rem;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .category-icon {
+      font-size: 3rem;
+      margin-bottom: 15px;
+    }
+
+    /* Lessons Section */
+    .lessons-container {
+      margin-bottom: 40px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .section-title {
+      font-size: 1.8rem;
+      color: var(--black);
+    }
+
+    .view-all {
+      color: var(--green);
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .lessons-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .lesson-card {
+      background-color: var(--white);
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .lesson-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .lesson-image {
+      height: 200px;
+      background-color: var(--light-green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 6rem;
+      color: white;
+    }
+
+    .lesson-info {
+      padding: 20px;
+    }
+
+    .lesson-title {
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+      color: var(--black);
+    }
+
+    .lesson-desc {
+      color: var(--dark-gray);
+      margin-bottom: 15px;
+      font-size: 1rem;
+    }
+
+    .lesson-meta {
+      display: flex;
+      justify-content: space-between;
+      color: var(--dark-gray);
+      font-size: 0.9rem;
+    }
+
+    .lesson-level {
+      background-color: var(--gray);
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
+
+    .lesson-card.completed .lesson-image {
+      background-color: var(--green);
+    }
+
+    .completed-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: var(--yellow);
+      color: var(--black);
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
+
+    .lesson-reward {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background-color: var(--orange);
+      color: white;
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
+
+    /* Progress Section */
+    .progress-container {
+      background-color: var(--white);
+      border-radius: 20px;
+      padding: 30px;
+      margin-bottom: 30px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .progress-title {
+      font-size: 1.5rem;
+      color: var(--black);
+    }
+
+    .xp-display {
+      background-color: var(--green);
+      color: white;
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-weight: bold;
+    }
+
+    .progress-bar-container {
+      width: 100%;
+      background-color: var(--gray);
+      border-radius: 10px;
+      height: 10px;
+      margin-bottom: 15px;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(to right, var(--green), var(--light-green));
+      border-radius: 10px;
+      width: 45%;
+    }
+
+    .progress-details {
+      display: flex;
+      justify-content: space-between;
+      color: var(--dark-gray);
+      font-size: 0.9rem;
+    }
+
+    /* Lesson Modal */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .modal {
+      background-color: white;
+      border-radius: 20px;
+      width: 90%;
+      max-width: 800px;
+      max-height: 90vh;
+      overflow-y: auto;
+      transform: translateY(20px);
+      transition: transform 0.3s;
+    }
+
+    .modal-overlay.active .modal {
+      transform: translateY(0);
+    }
+
+    .modal-header {
+      padding: 25px;
+      border-bottom: 1px solid var(--gray);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--black);
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--dark-gray);
+    }
+
+    .modal-content {
+      padding: 25px;
+    }
+
+    .lesson-modal-image {
+      width: 100%;
+      height: 300px;
+      background-color: var(--gray);
+      border-radius: 15px;
+      margin-bottom: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .lesson-modal-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .lesson-modal-desc {
+      margin-bottom: 30px;
+      line-height: 1.7;
+    }
+
+    .lesson-steps {
+      margin-bottom: 30px;
+    }
+
+    .lesson-step {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 15px;
+    }
+
+    .step-number {
+      background-color: var(--green);
+      color: white;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-right: 15px;
+      flex-shrink: 0;
+    }
+
+    .step-content {
+      flex-grow: 1;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 15px;
+    }
+
+    .modal-button {
+      flex: 1;
+      padding: 15px;
+      border-radius: 10px;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.3s;
+    }
+
+    .modal-button.primary {
+      background-color: var(--green);
+      color: white;
+    }
+
+    .modal-button.primary:hover {
+      background-color: var(--dark-green);
+    }
+
+    .modal-button.secondary {
+      background-color: var(--gray);
+      color: var(--black);
+    }
+
+    .modal-button.secondary:hover {
+      background-color: #e0e0e0;
+    }
+
+    /* Quiz Modal */
+    .quiz-question {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .quiz-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .quiz-option {
+      background-color: var(--gray);
+      border-radius: 15px;
+      padding: 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border: 3px solid transparent;
+    }
+
+    .quiz-option:hover {
+      background-color: #e0e0e0;
+      transform: translateY(-3px);
+    }
+
+    .quiz-option.correct {
+      background-color: var(--green);
+      color: white;
+      border-color: var(--dark-green);
+    }
+
+    .quiz-option.incorrect {
+      background-color: var(--red);
+      color: white;
+      border-color: #d43f3f;
+    }
+
+    .quiz-option-image {
+      width: 120px;
+      height: 120px;
+      background-color: white;
+      border-radius: 15px;
+      margin-bottom: 15px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 4rem;
+      overflow: hidden;
+    }
+
+    .quiz-option-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .quiz-option-text {
+      font-size: 1rem;
+      font-weight: bold;
+    }
+
+    .quiz-feedback {
+      text-align: center;
+      margin-bottom: 30px;
+      font-weight: bold;
+      font-size: 1.2rem;
+      min-height: 40px;
+      padding: 15px;
+      border-radius: 10px;
+    }
+
+    .quiz-feedback.correct {
+      background-color: rgba(88, 167, 0, 0.1);
+      color: var(--green);
+    }
+
+    .quiz-feedback.incorrect {
+      background-color: rgba(255, 75, 75, 0.1);
+      color: var(--red);
+    }
+
+    .quiz-next {
+      width: 100%;
+      padding: 20px;
+      background-color: var(--green);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-weight: bold;
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: none;
+      transition: all 0.3s;
+    }
+
+    .quiz-next:hover {
+      background-color: var(--dark-green);
+      transform: translateY(-3px);
+    }
+
+    /* XP Popup */
+    .xp-popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: var(--green);
+      color: white;
+      padding: 20px 40px;
+      border-radius: 50px;
+      font-weight: bold;
+      font-size: 1.2rem;
+      box-shadow: 0 10px 30px rgba(88, 167, 0, 0.4);
+      z-index: 3000;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.5s;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .xp-popup.show {
+      opacity: 1;
+      transform: translate(-50%, -60%);
+    }
+
+    .xp-icon {
+      font-size: 1.5rem;
+      animation: pulse 1s infinite;
+    }
+
+    /* Animations */
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.2);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    @keyframes bounce {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    @keyframes confetti {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .header {
+        padding: 0 20px;
+        height: 60px;
+      }
+
+      .logo-text {
+        font-size: 1.5rem;
+      }
+
+      .nav-items {
+        gap: 15px;
+      }
+
+      .category-header {
+        padding: 25px 20px;
+      }
+
+      .category-header h1 {
+        font-size: 1.8rem;
+      }
+
+      .lessons-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .quiz-options {
+        grid-template-columns: 1fr;
+      }
+
+      .lesson-modal-image {
+        height: 200px;
+        font-size: 6rem;
+      }
+    }
+
+    .footer {
+      background-color: var(--dark-green);
+      color: var(--white);
+      padding: 40px 30px;
+      text-align: center;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      text-align: left;
+    }
+
+    .footer-section {
+      margin-bottom: 20px;
+    }
+
+    .footer-section h3 {
+      font-size: 1.3rem;
+      margin-bottom: 20px;
+      color: var(--light-green);
+    }
+
+    .footer-section p {
+      margin-bottom: 15px;
+      line-height: 1.7;
+    }
+
+    .footer-links {
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 10px;
+    }
+
+    .footer-links a {
+      color: var(--white);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: var(--light-green);
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .footer-social a {
+      color: var(--white);
+      font-size: 1.5rem;
+      transition: color 0.3s;
+    }
+
+    .footer-social a:hover {
+      color: var(--light-green);
+    }
+
+    .footer-bottom {
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .footer-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .footer-social {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="logo">
+      <i class="fas fa-hands logo-icon"></i>
+      <div class="logo-text">Дохионы Хэл</div>
+    </div>
+    <div class="nav-items">
+      <a href="index.html" class="nav-item">
+        <i class="fas fa-home"></i>
+        <div class="nav-item-text">Нүүр</div>
+      </a>
+      <div class="nav-item active">
+        <i class="fas fa-book"></i>
+        <div class="nav-item-text">Хичээл</div>
+      </div>
+      <div class="nav-item">
+        <i class="fas fa-trophy"></i>
+        <div class="nav-item-text">Амжилт</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main">
+    <!-- Category Header -->
+    <section class="category-header">
+      <div class="category-icon">🏠</div>
+      <h1>Өдөр тутмын хэрэглээ</h1>
+      <p>Өдөр бүр хэрэглэдэг энгийн дохионуудыг сурцгаая</p>
+    </section>
+
+    <!-- Lessons Section -->
+    <section class="lessons-container">
+      <div class="section-header">
+        <div class="section-title">Хичээлүүд</div>
+        <div class="view-all">Бүгдийг харах</div>
+      </div>
+      <div class="lessons-grid" id="lessonsGrid">
+        <!-- Lesson 1 -->
+        <div class="lesson-card" data-lesson="1">
+          <div class="lesson-image">👋</div>
+          <div class="lesson-reward">+20 XP</div>
+          <div class="lesson-info">
+            <div class="lesson-title">Сайн уу</div>
+            <div class="lesson-desc">Энгийн мэндчилгээний үг</div>
+            <div class="lesson-meta">
+              <span>5 дасгал</span>
+              <span class="lesson-level">Энгийн</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lesson 2 -->
+        <div class="lesson-card" data-lesson="2">
+          <div class="lesson-image">👋</div>
+          <div class="lesson-reward">+20 XP</div>
+          <div class="lesson-info">
+            <div class="lesson-title">Баяртай</div>
+            <div class="lesson-desc">Явах үеийн мэндчилгээ</div>
+            <div class="lesson-meta">
+              <span>5 дасгал</span>
+              <span class="lesson-level">Энгийн</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lesson 3 -->
+        <div class="lesson-card" data-lesson="3">
+          <div class="lesson-image">🙏</div>
+          <div class="lesson-reward">+20 XP</div>
+          <div class="lesson-info">
+            <div class="lesson-title">Баярлалаа</div>
+            <div class="lesson-desc">Талархал илэрхийлэх үг</div>
+            <div class="lesson-meta">
+              <span>5 дасгал</span>
+              <span class="lesson-level">Энгийн</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lesson 4 -->
+        <div class="lesson-card" data-lesson="4">
+          <div class="lesson-image">🙇</div>
+          <div class="lesson-reward">+20 XP</div>
+          <div class="lesson-info">
+            <div class="lesson-title">Уучлаарай</div>
+            <div class="lesson-desc">Уучлалт илэрхийлэх үг</div>
+            <div class="lesson-meta">
+              <span>5 дасгал</span>
+              <span class="lesson-level">Энгийн</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lesson 5 -->
+        <div class="lesson-card" data-lesson="5">
+          <div class="lesson-image">👍</div>
+          <div class="lesson-reward">+20 XP</div>
+          <div class="lesson-info">
+            <div class="lesson-title">Тийм ээ</div>
+            <div class="lesson-desc">Зөвшөөрөл илэрхийлэх үг</div>
+            <div class="lesson-meta">
+              <span>5 дасгал</span>
+              <span class="lesson-level">Энгийн</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Progress Section -->
+    <section class="progress-container">
+      <div class="progress-header">
+        <div class="progress-title">Миний ахиц</div>
+        <div class="xp-display">0 XP</div>
+      </div>
+      <div class="progress-bar-container">
+        <div class="progress-bar"></div>
+      </div>
+      <div class="progress-details">
+        <span>0 хичээл дуусгасан</span>
+        <span>Дараагийн түвшин хүртэл 100 XP</span>
+      </div>
+    </section>
+  </main>
+
+  <!-- Lesson Modal -->
+  <div class="modal-overlay" id="lessonModal">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title">Сайн уу</div>
+        <button class="modal-close" id="closeModal">&times;</button>
+      </div>
+      <div class="modal-content">
+        <div class="lesson-modal-image">
+          <div class="lesson-modal-video">👋</div>
+        </div>
+        <div class="lesson-modal-desc">
+          <p>"Сайн уу" гэдэг нь энгийн мэндчилгээний үг юм. Энэ нь хүмүүстэй анх уулзах үед хэрэглэдэг бөгөөд хүндэтгэл,
+            нээлттэй байдлыг илэрхийлдэг.</p>
+        </div>
+        <div class="lesson-steps">
+          <div class="lesson-step">
+            <div class="step-number">1</div>
+            <div class="step-content">Баруун гараа өргөж, дотогш нь харсан байрлалд байрлуулна</div>
+          </div>
+          <div class="lesson-step">
+            <div class="step-number">2</div>
+            <div class="step-content">Гараа бага зэрэг хөдөлгөн мэндэлнэ</div>
+          </div>
+          <div class="lesson-step">
+            <div class="step-number">3</div>
+            <div class="step-content">Нүүрэн дээр инээмсэглэл гаргана</div>
+          </div>
+        </div>
+        <div class="modal-actions">
+          <button class="modal-button secondary">
+            <i class="fas fa-book"></i> Дасгал хийх
+          </button>
+          <button class="modal-button primary" id="startLesson">
+            <i class="fas fa-play"></i> Шалгалт өгөх
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quiz Modal -->
+  <div class="modal-overlay" id="quizModal">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title">Шалгалт: Сайн уу</div>
+        <button class="modal-close" id="closeQuiz">&times;</button>
+      </div>
+      <div class="modal-content">
+        <div class="quiz-question">"Сайн уу" дохиог аль нь вэ?</div>
+        <div class="quiz-options">
+          <div class="quiz-option" data-correct="true">
+            <div class="quiz-option-image">👋</div>
+            <div class="quiz-option-text">Сайн уу</div>
+          </div>
+          <div class="quiz-option" data-correct="false">
+            <div class="quiz-option-image">✋</div>
+            <div class="quiz-option-text">Зогс</div>
+          </div>
+          <div class="quiz-option" data-correct="false">
+            <div class="quiz-option-image">🤚</div>
+            <div class="quiz-option-text">Сайн байна уу</div>
+          </div>
+          <div class="quiz-option" data-correct="false">
+            <div class="quiz-option-image">🖐️</div>
+            <div class="quiz-option-text">Тав</div>
+          </div>
+        </div>
+        <div class="quiz-feedback"></div>
+        <button class="quiz-next">Дуусгах</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- XP Popup -->
+  <div class="xp-popup" id="xpPopup">
+    <i class="fas fa-star xp-icon"></i>
+    <span>+10 XP!</span>
+  </div>
+
+  <script>
+    // App State
+    let currentUser = {
+      xp: 0,
+      completedLessons: [],
+      currentStreak: 0,
+      longestStreak: 0
+    };
+
+    // DOM Elements
+    const lessonModal = document.getElementById('lessonModal');
+    const quizModal = document.getElementById('quizModal');
+    const closeModal = document.getElementById('closeModal');
+    const closeQuiz = document.getElementById('closeQuiz');
+    const startLesson = document.getElementById('startLesson');
+    const xpPopup = document.getElementById('xpPopup');
+    const lessonsGrid = document.getElementById('lessonsGrid');
+
+    // Lesson Data
+    const lessons = [
+      {
+        id: 1,
+        title: "Сайн уу",
+        emoji: "👋",
+        description: "Энгийн мэндчилгээний үг",
+        content: {
+          instruction: '"Сайн уу" гэдэг нь энгийн мэндчилгээний үг юм. Энэ нь хүмүүстэй анх уулзах үед хэрэглэдэг бөгөөд хүндэтгэл, нээлттэй байдлыг илэрхийлдэг.',
+          steps: [
+            "Баруун гараа өргөж, дотогш нь харсан байрлалд байрлуулна",
+            "Гараа бага зэрэг хөдөлгөн мэндэлнэ",
+            "Нүүрэн дээр инээмсэглэл гаргана"
+          ],
+          video: "👋"
+        },
+        quiz: {
+          question: '"Сайн уу" дохиог аль нь вэ?',
+          options: [
+            { image: "👋", text: "Сайн уу", correct: true },
+            { image: "✋", text: "Зогс", correct: false },
+            { image: "🤚", text: "Сайн байна уу", correct: false },
+            { image: "🖐️", text: "Тав", correct: false }
+          ]
+        }
+      },
+      {
+        id: 2,
+        title: "Баяртай",
+        emoji: "👋",
+        description: "Явах үеийн мэндчилгээ",
+        content: {
+          instruction: '"Баяртай" гэдэг нь явах үеийн мэндчилгээ юм. Энэ нь харилцаа дуусгах үед хүндэтгэлтэйгээр салахыг илэрхийлдэг.',
+          steps: [
+            "Гараа өргөж, дотогш нь харсан байрлалд байрлуулна",
+            "Гараа бага зэрэг чиглүүлэн хөдөлгөнө",
+            "Нүүрэн дээр инээмсэглэл гаргана"
+          ],
+          video: "👋"
+        },
+        quiz: {
+          question: '"Баяртай" дохиог аль нь вэ?',
+          options: [
+            { image: "👋", text: "Баяртай", correct: true },
+            { image: "✌️", text: "Явах", correct: false },
+            { image: "👋", text: "Сайн уу", correct: false },
+            { image: "🤙", text: "Дуудлага", correct: false }
+          ]
+        }
+      },
+      {
+        id: 3,
+        title: "Баярлалаа",
+        emoji: "🙏",
+        description: "Талархал илэрхийлэх үг",
+        content: {
+          instruction: '"Баярлалаа" гэдэг нь талархал илэрхийлэх үг юм. Энэ нь хүний сайн хандлагын төлөө талархал илэрхийлэхэд хэрэглэдэг.',
+          steps: [
+            "Хоёр гараа нийлүүлэн урд талдаа байрлуулна",
+            "Баруун гар зүүн гар руугаа бага зэрэг налайж",
+            "Нүүрэн дээр талархал илэрхийлнэ"
+          ],
+          video: "🙏"
+        },
+        quiz: {
+          question: '"Баярлалаа" дохиог аль нь вэ?',
+          options: [
+            { image: "🙏", text: "Баярлалаа", correct: true },
+            { image: "🤲", text: "Хүлээж авах", correct: false },
+            { image: "👐", text: "Зүгээр үү", correct: false },
+            { image: "🤝", text: "Мэндлэх", correct: false }
+          ]
+        }
+      },
+      {
+        id: 4,
+        title: "Уучлаарай",
+        emoji: "🙇",
+        description: "Уучлалт илэрхийлэх үг",
+        content: {
+          instruction: '"Уучлаарай" гэдэг нь уучлалт илэрхийлэх үг юм. Энэ нь алдаа гаргасан, эвдрэл учруулсан тохиолдолд хэрэглэдэг.',
+          steps: [
+            "Баруун гараа цээжэн дээрээ байрлуулна",
+            "Гараа бага зэрэг эргүүлнэ",
+            "Нүүрэн дээр уучлалт илэрхийлнэ"
+          ],
+          video: "🙇"
+        },
+        quiz: {
+          question: '"Уучлаарай" дохиог аль нь вэ?',
+          options: [
+            { image: "🙇", text: "Уучлаарай", correct: true },
+            { image: "🙏", text: "Баярлалаа", correct: false },
+            { image: "🤦", text: "Ичгүүртэй", correct: false },
+            { image: "🤷", text: "Мэдэхгүй", correct: false }
+          ]
+        }
+      },
+      {
+        id: 5,
+        title: "Тийм ээ",
+        emoji: "👍",
+        description: "Зөвшөөрөл илэрхийлэх үг",
+        content: {
+          instruction: '"Тийм ээ" гэдэг нь зөвшөөрөл илэрхийлэх үг юм. Энэ нь асуултанд эерэг хариулт өгөх, зөвшөөрөл илэрхийлэхэд хэрэглэдэг.',
+          steps: [
+            "Эрхий хуруугаа дээш чиглүүлэн өргөнө",
+            "Бусад хуруугаа хумина",
+            "Гараа бага зэрэг хөдөлгөнө"
+          ],
+          video: "👍"
+        },
+        quiz: {
+          question: '"Тийм ээ" дохиог аль нь вэ?',
+          options: [
+            { image: "👍", text: "Тийм ээ", correct: true },
+            { image: "👎", text: "Үгүй ээ", correct: false },
+            { image: "✊", text: "Бөгж", correct: false },
+            { image: "👌", text: "Сайн", correct: false }
+          ]
+        }
+      }
+    ];
+
+    // Initialize the app
+    document.addEventListener('DOMContentLoaded', () => {
+      setupEventListeners();
+      loadProgress();
+    });
+
+    // Event Listeners
+    function setupEventListeners() {
+      // Lesson cards
+      document.querySelectorAll('.lesson-card').forEach(card => {
+        card.addEventListener('click', () => {
+          const lessonId = parseInt(card.dataset.lesson);
+          openLessonModal(lessonId);
+        });
+      });
+
+      // Modal buttons
+      closeModal.addEventListener('click', () => {
+        lessonModal.classList.remove('active');
+      });
+
+      closeQuiz.addEventListener('click', () => {
+        quizModal.classList.remove('active');
+      });
+
+      startLesson.addEventListener('click', () => {
+        lessonModal.classList.remove('active');
+        startQuiz();
+      });
+
+      // Quiz options (delegated event)
+      document.addEventListener('click', (e) => {
+        if (e.target.classList.contains('quiz-option') ||
+          e.target.closest('.quiz-option')) {
+          const option = e.target.classList.contains('quiz-option') ?
+            e.target : e.target.closest('.quiz-option');
+          handleQuizAnswer(option);
+        }
+      });
+
+      // Quiz next button
+      document.addEventListener('click', (e) => {
+        if (e.target.classList.contains('quiz-next')) {
+          completeLesson();
+        }
+      });
+    }
+
+    // Load progress from localStorage
+    function loadProgress() {
+      const savedProgress = localStorage.getItem('signLanguageProgress');
+      if (savedProgress) {
+        currentUser = JSON.parse(savedProgress);
+        updateProgressUI();
+      }
+    }
+
+    // Save progress to localStorage
+    function saveProgress() {
+      localStorage.setItem('signLanguageProgress', JSON.stringify(currentUser));
+    }
+
+    // Open lesson modal
+    function openLessonModal(lessonId) {
+      const lesson = lessons.find(l => l.id === lessonId);
+
+      document.querySelector('#lessonModal .modal-title').textContent = lesson.title;
+
+      const modalContent = document.querySelector('#lessonModal .modal-content');
+      modalContent.innerHTML = `
+        <div class="lesson-modal-image">
+          <div class="lesson-modal-video">${lesson.content.video}</div>
+        </div>
+        <div class="lesson-modal-desc">
+          <p>${lesson.content.instruction}</p>
+        </div>
+        <div class="lesson-steps">
+          ${lesson.content.steps.map((step, index) => `
+            <div class="lesson-step">
+              <div class="step-number">${index + 1}</div>
+              <div class="step-content">${step}</div>
+            </div>
+          `).join('')}
+        </div>
+        <div class="modal-actions">
+          <button class="modal-button secondary">
+            <i class="fas fa-book"></i> Дасгал хийх
+          </button>
+          <button class="modal-button primary" id="startLesson">
+            <i class="fas fa-play"></i> Шалгалт өгөх
+          </button>
+        </div>
+      `;
+
+      lessonModal.classList.add('active');
+
+      // Re-attach event listener to the new button
+      document.getElementById('startLesson').addEventListener('click', () => {
+        lessonModal.classList.remove('active');
+        startQuiz(lesson);
+      });
+    }
+
+    // Start quiz
+    function startQuiz(lesson) {
+      document.querySelector('#quizModal .modal-title').textContent = `Шалгалт: ${lesson.title}`;
+
+      const quizContent = document.querySelector('#quizModal .modal-content');
+      quizContent.innerHTML = `
+        <div class="quiz-question">${lesson.quiz.question}</div>
+        <div class="quiz-options">
+          ${lesson.quiz.options.map(option => `
+            <div class="quiz-option" data-correct="${option.correct}">
+              <div class="quiz-option-image">${option.image}</div>
+              <div class="quiz-option-text">${option.text}</div>
+            </div>
+          `).join('')}
+        </div>
+        <div class="quiz-feedback"></div>
+        <button class="quiz-next">Дуусгах</button>
+      `;
+
+      quizModal.classList.add('active');
+    }
+
+    // Handle quiz answer
+    function handleQuizAnswer(selectedOption) {
+      if (selectedOption.classList.contains('correct') ||
+        selectedOption.classList.contains('incorrect')) {
+        return; // Already answered
+      }
+
+      const isCorrect = selectedOption.dataset.correct === "true";
+      const options = document.querySelectorAll('.quiz-option');
+
+      // Disable all options
+      options.forEach(option => {
+        option.style.pointerEvents = 'none';
+
+        if (option.dataset.correct === "true") {
+          option.classList.add('correct');
+        } else if (option === selectedOption && !isCorrect) {
+          option.classList.add('incorrect');
+        }
+      });
+
+      // Show feedback
+      const feedback = document.querySelector('.quiz-feedback');
+      feedback.textContent = isCorrect ? 'Зөв хариуллаа! 🎉' : 'Буруу хариуллаа 😕';
+      feedback.className = `quiz-feedback ${isCorrect ? 'correct' : 'incorrect'}`;
+
+      // Show next button
+      document.querySelector('.quiz-next').style.display = 'block';
+
+      // Add XP if correct
+      if (isCorrect) {
+        showXPPopup(10);
+      }
+    }
+
+    // Complete lesson
+    function completeLesson() {
+      // In a real app, you would track which lesson was completed
+      // For demo, we'll just add XP
+      updateXP(20);
+      quizModal.classList.remove('active');
+    }
+
+    // Show XP popup
+    function showXPPopup(amount) {
+      xpPopup.innerHTML = `<i class="fas fa-star xp-icon"></i><span>+${amount} XP!</span>`;
+      xpPopup.classList.add('show');
+
+      setTimeout(() => {
+        xpPopup.classList.remove('show');
+      }, 1500);
+    }
+
+    // Update XP
+    function updateXP(amount) {
+      currentUser.xp += amount;
+      updateProgressUI();
+      saveProgress();
+    }
+
+    // Update progress UI
+    function updateProgressUI() {
+      document.querySelector('.xp-display').textContent = `${currentUser.xp} XP`;
+
+      // Update progress bar (simple version)
+      const progressPercent = Math.min(100, (currentUser.xp / 100) * 100);
+      document.querySelector('.progress-bar').style.width = `${progressPercent}%`;
+
+      // Update progress text
+      const xpNeeded = Math.max(0, 100 - currentUser.xp);
+      document.querySelector('.progress-details span:last-child').textContent =
+        `Дараагийн түвшин хүртэл ${xpNeeded} XP`;
+
+      // Update completed count
+      const completedCount = currentUser.completedLessons.length;
+      document.querySelector('.progress-details span:first-child').textContent =
+        `${completedCount} хичээл дуусгасан`;
+    }
+  </script>
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>Дохионы Хэл</h3>
+        <p>Монгол дохионы хэл сурах хамгийн хялбар платформ. Бид хүүхдүүд болон насанд хүрэгчдэд зориулсан хичээлүүдийг
+          санал болгодог.</p>
+        <div class="footer-social">
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+          <a href="#"><i class="fab fa-tiktok"></i></a>
+        </div>
+      </div>
+
+      <div class="footer-section">
+        <h3>Холбоос</h3>
+        <ul class="footer-links">
+          <li><a href="#">Нүүр хуудас</a></li>
+          <li><a href="#">Хичээлүүд</a></li>
+          <li><a href="#">Амжилт</a></li>
+          <li><a href="#">Бидний тухай</a></li>
+          <li><a href="#">Холбоо барих</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3>Холбоо барих</h3>
+        <p><i class="fas fa-map-marker-alt"></i> Улаанбаатар хот, Сүхбаатар дүүрэг</p>
+        <p><i class="fas fa-phone"></i> +976 12345678</p>
+        <p><i class="fas fa-envelope"></i> info@dohionyhel.mn</p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2023 Дохионы Хэл. Бүх эрх хуулиар хамгаалагдсан.</p>
+    </div>
+  </footer>
+</body>
+
+</html>
