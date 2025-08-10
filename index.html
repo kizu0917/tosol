@@ -44,6 +44,8 @@
       width: 100%;
       top: 0;
       z-index: 1000;
+      left: 0;
+      right: 0;
     }
 
     .logo {
@@ -105,6 +107,8 @@
       margin-top: 90px;
       padding: 25px;
       min-height: calc(100vh - 150px);
+      position: relative;
+      z-index: 1;
     }
 
   
@@ -118,7 +122,7 @@
       box-shadow: 0 10px 30px rgba(88, 167, 0, 0.3);
       position: relative;
       overflow: hidden;
-      height: 400px;
+      height: 300px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -126,8 +130,8 @@
     }
 
     .hero-image {
-      width: 300px;
-      height: 300px;
+      width: 200px;
+      height: 200px;
       background-color: rgba(255,255,255,0.2);
       border-radius: 50%;
       display: flex;
@@ -137,20 +141,20 @@
     }
 
     .hero-image i {
-      font-size: 8rem;
+      font-size: 6rem;
     }
 
     .hero h1 {
-      font-size: 2.5rem;
+      font-size: 2rem;
       margin-bottom: 15px;
       position: relative;
       z-index: 1;
     }
 
     .hero p {
-      font-size: 1.1rem;
-      max-width: 700px;
-      margin: 0 auto 25px;
+      font-size: 1rem;
+      max-width: 600px;
+      margin: 0 auto 20px;
       position: relative;
       z-index: 1;
     }
@@ -178,8 +182,9 @@
     }
 
     .section-title {
-      font-size: 1.8rem;
+      font-size: 1.6rem;
       color: var(--black);
+      font-weight: 600;
     }
 
     .view-all {
@@ -190,14 +195,73 @@
 
     .categories-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 15px;
+    }
+
+    /* Mobile category grid - 3 buttons per row */
+    @media (max-width: 768px) {
+      .categories-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+      }
+      
+      .category-card {
+        padding: 15px 10px;
+      }
+      
+      .category-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.8rem;
+      }
+      
+      .category-title {
+        font-size: 0.9rem;
+      }
+      
+      .category-count {
+        font-size: 0.8rem;
+      }
+      
+      .section-title {
+        font-size: 1.3rem;
+      }
+      
+      .section-header {
+        margin-bottom: 15px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .categories-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+      }
+      
+      .category-card {
+        padding: 10px 8px;
+      }
+      
+      .category-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+      }
+      
+      .category-title {
+        font-size: 0.8rem;
+      }
+      
+      .category-count {
+        font-size: 0.7rem;
+      }
     }
 
     .category-card {
       background-color: var(--white);
       border-radius: 15px;
-      padding: 25px;
+      padding: 20px;
       text-align: center;
       box-shadow: 0 5px 15px rgba(0,0,0,0.05);
       transition: all 0.3s;
@@ -210,25 +274,25 @@
     }
 
     .category-icon {
-      width: 100px;
-      height: 100px;
-      margin: 0 auto 15px;
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 12px;
       background-color: var(--gray);
       border-radius: 50%;
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 2.5rem;
+      font-size: 2rem;
     }
 
     .category-title {
-      font-size: 1.1rem;
-      margin-bottom: 5px;
+      font-size: 1rem;
+      margin-bottom: 4px;
     }
 
     .category-count {
       color: var(--dark-gray);
-      font-size: 0.9rem;
+      font-size: 0.8rem;
     }
 
     
@@ -238,8 +302,8 @@
 
     .lessons-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 15px;
     }
 
     .lesson-card {
@@ -250,6 +314,8 @@
       transition: all 0.3s;
       cursor: pointer;
       position: relative;
+      display: flex;
+      flex-direction: column;
     }
 
     .lesson-card:hover {
@@ -258,62 +324,69 @@
     }
 
     .lesson-image {
-      height: 150px;
+      height: 120px;
       background-color: var(--light-green);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 5rem;
+      font-size: 4rem;
       color: white;
       overflow: hidden;
       border-radius: 15px 15px 0 0;
+      position: relative;
+      flex-shrink: 0;
     }
 
     .lesson-image video {
       width: 100%;
-      height: 0;
-      padding-bottom: 56.25%; /* 16:9 aspect ratio (9/16 = 0.5625) */
+      height: 100%;
       object-fit: cover;
       border-radius: 15px 15px 0 0;
-      position: relative;
-    }
-    
-    .lesson-image video {
       position: absolute;
       top: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
+      z-index: 1;
     }
 
     .lesson-info {
-      padding: 20px;
+      padding: 15px;
+      position: relative;
+      z-index: 2;
+      background-color: var(--white);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
     .lesson-title {
-      font-size: 1.2rem;
-      margin-bottom: 10px;
+      font-size: 1rem;
+      margin-bottom: 8px;
       color: var(--black);
+      font-weight: 600;
+      line-height: 1.3;
     }
 
     .lesson-desc {
       color: var(--dark-gray);
-      margin-bottom: 15px;
-      font-size: 0.9rem;
+      margin-bottom: 12px;
+      font-size: 0.85rem;
+      line-height: 1.4;
+      display: block;
     }
 
     .lesson-meta {
       display: flex;
       justify-content: space-between;
       color: var(--dark-gray);
-      font-size: 0.8rem;
+      font-size: 0.75rem;
     }
 
     .lesson-level {
       background-color: var(--gray);
-      padding: 3px 10px;
-      border-radius: 20px;
-      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: 15px;
+      font-size: 0.65rem;
     }
 
     .lesson-card.completed .lesson-image {
@@ -322,13 +395,13 @@
 
     .completed-badge {
       position: absolute;
-      top: 10px;
-      right: 10px;
+      top: 8px;
+      right: 8px;
       background-color: var(--yellow);
       color: var(--black);
-      padding: 3px 8px;
-      border-radius: 20px;
-      font-size: 0.7rem;
+      padding: 2px 6px;
+      border-radius: 15px;
+      font-size: 0.65rem;
       font-weight: bold;
     }
 
@@ -457,6 +530,7 @@
       justify-content: center;
       font-size: 6rem;
       overflow: hidden;
+      position: relative;
     }
 
     .lesson-modal-image video {
@@ -464,6 +538,10 @@
       height: 100%;
       object-fit: cover;
       border-radius: 15px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
     }
 
     .lesson-modal-desc {
@@ -511,6 +589,7 @@
     /* Page Sections */
     .page-section {
       display: none;
+      padding-top: 20px;
     }
 
     .page-section.active {
@@ -681,6 +760,7 @@
       align-items: center;
       font-size: 2.5rem;
       overflow: hidden;
+      position: relative;
     }
 
     .quiz-option-image video {
@@ -688,6 +768,10 @@
       height: 100%;
       object-fit: cover;
       border-radius: 10px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
     }
 
     .quiz-option-text {
@@ -923,6 +1007,10 @@
       border-radius: 10px;
       margin: 10px 0;
       box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 400px;
+      height: auto;
+      display: block;
     }
 
     .quiz-game-container .quiz-box .option-container .option {
@@ -1129,6 +1217,33 @@
       transform: translate(-50%, -60%);
     }
 
+    /* Global video styling */
+    video {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Ensure videos are properly contained */
+    .lesson-image video,
+    .lesson-modal-image video,
+    .quiz-option-image video {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Fix 16:9 aspect ratio for videos */
+    .lesson-modal-image {
+      aspect-ratio: 16/9;
+      width: 100%;
+    }
+
+    .lesson-modal-image video {
+      aspect-ratio: 16/9;
+      object-fit: contain;
+    }
+
     
     @keyframes pulse {
       0% { transform: scale(1); }
@@ -1146,6 +1261,8 @@
       .header {
         padding: 0 10px;
         height: 56px;
+        background-color: var(--white);
+        box-shadow: 0 2px 15px rgba(0,0,0,0.1);
       }
       .logo-text {
         font-size: 1.1rem;
@@ -1158,24 +1275,67 @@
       }
       .main {
         padding: 10px;
+        margin-top: 70px;
       }
       .hero {
-        padding: 18px 6px;
-        height: 220px;
+        padding: 20px 15px;
+        height: 180px;
+        margin-bottom: 20px;
       }
       .hero h1 {
-        font-size: 1.2rem;
+        font-size: 1.4rem;
+        margin-bottom: 10px;
+      }
+      .hero p {
+        font-size: 0.9rem;
+        margin-bottom: 15px;
       }
       .hero-image {
-        width: 90px;
-        height: 90px;
+        width: 80px;
+        height: 80px;
+        margin-bottom: 15px;
+      }
+      .hero-image i {
+        font-size: 3rem;
       }
       .categories-grid, .lessons-grid, .achievements-grid, .stats-grid {
         grid-template-columns: 1fr;
         gap: 12px;
       }
+      
+      .lessons-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+      
+      #allLessonsGrid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+      }
       .lesson-card, .category-card, .achievement-card, .stat-card {
         padding: 12px;
+      }
+      
+      .lesson-image {
+        height: 100px;
+      }
+      
+      .lesson-info {
+        padding: 12px;
+      }
+      
+      .lesson-title {
+        font-size: 0.9rem;
+        margin-bottom: 6px;
+      }
+      
+      .lesson-desc {
+        font-size: 0.8rem;
+        margin-bottom: 8px;
+      }
+      
+      .lesson-meta {
+        font-size: 0.7rem;
       }
       .lesson-title, .category-title, .achievement-title, .stat-label {
         font-size: 1rem;
@@ -1187,48 +1347,68 @@
         font-size: 0.9rem;
       }
       .modal {
-        width: 98vw;
-        max-width: 98vw;
+        width: 95vw;
+        max-width: 95vw;
         min-width: 0;
         border-radius: 10px;
-        padding: 0;
+        margin: 10px;
+        max-height: 90vh;
       }
       .modal-content, .modal-header {
-        padding: 10px;
+        padding: 15px;
       }
       .lesson-modal-image {
         font-size: 2.5rem;
-        min-height: 120px;
-        max-height: 180px;
+        min-height: 150px;
+        max-height: 200px;
+        border-radius: 10px;
+        position: relative;
+        aspect-ratio: 16/9;
+      }
+      .lesson-modal-image video {
+        border-radius: 10px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        background-color: #000;
       }
       .quiz-options {
         grid-template-columns: 1fr;
         gap: 10px;
       }
       .quiz-option {
-        padding: 12px;
+        padding: 15px;
         font-size: 1rem;
+        border-radius: 10px;
       }
       .quiz-option-image {
         width: 60px;
         height: 60px;
+        border-radius: 8px;
+      }
+      .quiz-option-image video {
+        border-radius: 8px;
       }
       .quiz-next, .quiz-btn, .modal-button {
         font-size: 1rem;
-        padding: 12px 0;
+        padding: 15px 0;
         border-radius: 8px;
+        margin-top: 10px;
       }
       .video-upload-section {
-        padding: 10px;
+        padding: 15px;
       }
       .upload-container {
         flex-direction: column;
         align-items: stretch;
-        gap: 8px;
+        gap: 10px;
       }
       .upload-btn, .upload-submit-btn {
         width: 100%;
-        padding: 12px 0;
+        padding: 15px 0;
         font-size: 1rem;
       }
       .upload-info span {
@@ -1237,33 +1417,57 @@
       .footer-content {
         grid-template-columns: 1fr;
         text-align: center;
-        gap: 10px;
+        gap: 15px;
       }
       .footer-section {
-        margin-bottom: 10px;
+        margin-bottom: 15px;
       }
       .footer-social {
         justify-content: center;
+      }
+      .quiz-question {
+        font-size: 1.1rem;
+        margin-bottom: 20px;
+      }
+      .quiz-feedback {
+        font-size: 1rem;
+        margin-bottom: 20px;
       }
     }
     @media (max-width: 480px) {
       .header {
         height: 48px;
         padding: 0 4px;
+        background-color: var(--white);
+        box-shadow: 0 2px 15px rgba(0,0,0,0.1);
       }
       .logo-text {
         font-size: 0.9rem;
       }
       .main {
         padding: 4px;
+        margin-top: 60px;
       }
       .hero {
-        padding: 8px 2px;
-        height: 120px;
+        padding: 15px 10px;
+        height: 140px;
+        margin-bottom: 15px;
+      }
+      .hero h1 {
+        font-size: 1.2rem;
+        margin-bottom: 8px;
+      }
+      .hero p {
+        font-size: 0.8rem;
+        margin-bottom: 10px;
       }
       .hero-image {
-        width: 50px;
-        height: 50px;
+        width: 60px;
+        height: 60px;
+        margin-bottom: 10px;
+      }
+      .hero-image i {
+        font-size: 2.5rem;
       }
       .lesson-title, .category-title, .achievement-title, .stat-label {
         font-size: 0.9rem;
@@ -1275,32 +1479,89 @@
         font-size: 0.8rem;
       }
       .modal {
-        width: 100vw;
-        max-width: 100vw;
+        width: 98vw;
+        max-width: 98vw;
         min-width: 0;
-        border-radius: 0;
-        padding: 0;
+        border-radius: 8px;
+        margin: 5px;
+        max-height: 95vh;
       }
       .modal-content, .modal-header {
-        padding: 4px;
+        padding: 10px;
       }
       .lesson-modal-image {
         font-size: 1.2rem;
-        min-height: 60px;
-        max-height: 90px;
+        min-height: 100px;
+        max-height: 150px;
+        border-radius: 8px;
+        position: relative;
+        aspect-ratio: 16/9;
+      }
+      .lesson-modal-image video {
+        border-radius: 8px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        background-color: #000;
+      }
+      
+      .lesson-image {
+        height: 80px;
+      }
+      
+      .lesson-info {
+        padding: 10px;
+      }
+      
+      .lesson-title {
+        font-size: 0.85rem;
+        margin-bottom: 5px;
+      }
+      
+      .lesson-desc {
+        font-size: 0.75rem;
+        margin-bottom: 6px;
+      }
+      
+      .lesson-meta {
+        font-size: 0.65rem;
       }
       .quiz-option-image {
         width: 40px;
         height: 40px;
+        border-radius: 6px;
+      }
+      .quiz-option-image video {
+        border-radius: 6px;
       }
       .quiz-next, .quiz-btn, .modal-button {
         font-size: 0.9rem;
-        padding: 8px 0;
+        padding: 12px 0;
         border-radius: 6px;
+        margin-top: 8px;
       }
       .upload-btn, .upload-submit-btn {
         font-size: 0.9rem;
-        padding: 8px 0;
+        padding: 12px 0;
+      }
+      .quiz-question {
+        font-size: 1rem;
+        margin-bottom: 15px;
+      }
+      .quiz-feedback {
+        font-size: 0.9rem;
+        margin-bottom: 15px;
+      }
+      
+      .section-title {
+        font-size: 1.1rem;
+      }
+      
+      .section-header {
+        margin-bottom: 12px;
       }
     }
   </style>
